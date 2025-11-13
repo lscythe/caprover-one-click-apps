@@ -1,0 +1,43 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        image: b3log/siyuan:$$cap_siyuan_version
+        command: ['--workspace=$$cap_appname-data']
+        restart: unless-stopped
+        volumes:
+            - $$cap_appname-data:/siyuan/workspace
+        environment:
+            TZ: $$cap_timezone
+            PUID: $$cap_puid
+            PGID: $$cap_pgid
+            SIYUAN_ACCESS_AUTH_CODE: $$cap_authcode
+        caproverExtra:
+            containerHttpPort: '6806'
+caproverOneClickApp:
+    variables:
+        - id: $$cap_timezone
+          label: Timezone
+          defaultValue: UTC
+          description: Timezone Indentifiers
+        - id: $$cap_puid
+          label: UserID
+          defaultValue: 1000
+          description: Your User ID
+        - id: $$cap_pgid
+          label: GroupID
+          defaultValue: 1000
+          description: Your Group ID
+        - id: $$cap_authcode
+          label: Auth Code
+          defaultValue: xxx
+          description: Access authorization code
+    instructions:
+        start: >-
+            SiYuan is a privacy-first personal knowledge management system,
+            support fine-graned block-level reference and Markdown WYSIWYG.
+        end: >-
+            SiYuan is deployed and available as $$cap_appname
+    displayName: SiYuan
+    isOffical: false
+    description: Siyuan is a privacy first personal knowledge management system.
+    documentation: This docker compose is taken from https://github.com/siyuan-note/siyuan
